@@ -10,6 +10,7 @@
   []
   (f/run
    (m/MaterialApp
+    .debugShowCheckedModeBanner false
     ;; TODO: set color based on OS configuration
     ;; :light #f0f2f5 :dark #18191a
     .theme (m/ThemeData
