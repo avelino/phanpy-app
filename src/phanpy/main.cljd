@@ -1,36 +1,9 @@
 (ns phanpy.main
   (:require ["package:flutter/material.dart" :as m]
-            ["package:webview_flutter/webview_flutter.dart" :as webview]
-            ["package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart" :as webview-interface]
-            ["package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart" :as webview-ios]
-            [cljd.flutter :as f]))
+            [cljd.flutter :as f]
+            [phanpy.webview :as webview]))
 
 (def url "https://phanpy.social/#/login")
-
-(defn web-view
-  "constructs the webview widget by receiving the URL that will be loaded"
-  [current-url]
-  (f/widget
-   :let [ios (dart/is? webview-interface/WebViewPlatform.instance
-                       webview-ios/WebKitWebViewPlatform)
-         ;; you can customize parameters passed to the underlying platform ios/android
-         params (if ios
-                  (webview-ios/WebKitWebViewControllerCreationParams)
-                  (webview/PlatformWebViewControllerCreationParams))]
-   :managed [controller
-             (doto (webview/WebViewController.fromPlatformCreationParams params)
-               (.setJavaScriptMode webview/JavaScriptMode.unrestricted)
-               (.setBackgroundColor m/Colors.white)
-               (.enableZoom true)
-               (.setUserAgent "PhanpyMobile")
-               (cond-> ios
-                 (-> ^webview-ios/WebKitWebViewController (.-platform)
-                    ;; if you want the user to be able to go back
-                     (.setAllowsBackForwardNavigationGestures true)))
-               (.loadRequest (Uri/parse current-url)))
-             :dispose false]
-
-   (webview/WebViewWidget .controller controller)))
 
 (defn main
   "where the magic happens :D"
@@ -44,4 +17,4 @@
    .home (m/Scaffold .appBar (m/AppBar .toolbarHeight 0))
    .body
    m/Center
-   (web-view url)))
+   (webview/load-url url)))

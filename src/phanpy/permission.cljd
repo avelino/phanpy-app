@@ -1,0 +1,8 @@
+(ns phanpy.permission
+  (:require ["package:photo_manager/photo_manager.dart" :as pm]))
+
+(defn photo-request
+  "request permission to the photo gallery and camera"
+  []
+  (.requestPermissionExtend pm/PhotoManager)
+  nil)
