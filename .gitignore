@@ -25,3 +25,16 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# ClojureDart
+.cpcache
+.lsp/.cache
+.clj-kondo/*
+!.clj-kondo/config.edn
+.clojuredart
+lib/cljd-out/*
+test/cljd-out/*
+*-e
+.*
+!.github
+tmp/
