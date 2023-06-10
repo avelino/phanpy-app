@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - permission_handler_apple (9.1.0):
+  - flutter_native_splash (0.0.1):
     - Flutter
   - photo_manager (2.0.0):
     - Flutter
@@ -10,15 +10,15 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  permission_handler_apple:
-    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  flutter_native_splash:
+    :path: ".symlinks/plugins/flutter_native_splash/ios"
   photo_manager:
     :path: ".symlinks/plugins/photo_manager/ios"
   webview_flutter_wkwebview:
@@ -26,7 +26,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  permission_handler_apple: 8f116445eff3c0e7c65ad60f5fef5490aa94b4e4
+  flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
 

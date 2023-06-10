@@ -8,7 +8,7 @@
 
 (defn load-url
   "constructs the webview widget by receiving the URL that will be loaded"
-  [current-url]
+  [url]
   (f/widget
    :let [ios (dart/is? webview-interface/WebViewPlatform.instance
                        webview-ios/WebKitWebViewPlatform)
@@ -30,9 +30,9 @@
                     .onPageStarted (permission/photo-request)))))
                (cond-> ios
                  (-> ^webview-ios/WebKitWebViewController (.-platform)
-                    ;; if you want the user to be able to go back
+                     ;; allow the user to return with gesture movement
                      (.setAllowsBackForwardNavigationGestures true)))
-               (.loadRequest (Uri/parse current-url)))
+               (.loadRequest (Uri/parse url)))
              :dispose false]
 
    (webview/WebViewWidget .controller controller)))

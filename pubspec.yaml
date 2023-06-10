@@ -15,8 +15,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   webview_flutter: ^4.2.2
-  permission_handler: ^10.3.0
   photo_manager: ^2.6.0
+  flutter_native_splash: ^2.3.1
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +32,7 @@ flutter_launcher_icons:
   android: true
   ios: true
   min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#B7CDF9"
+  image: "assets/logo.png"
