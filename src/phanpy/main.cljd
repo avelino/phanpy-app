@@ -1,9 +1,8 @@
 (ns phanpy.main
   (:require ["package:flutter/material.dart" :as m]
             [cljd.flutter :as f]
+            [phanpy.config :as config]
             [phanpy.webview :as webview]))
-
-(def url "https://phanpy.social/#/login")
 
 (defn main
   "where the magic happens :D"
@@ -18,4 +17,4 @@
    .home (m/Scaffold .appBar (m/AppBar .toolbarHeight 0))
    .body
    m/Center
-   (webview/load-url url)))
+   (webview/load-url config/url)))

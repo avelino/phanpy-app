@@ -59,6 +59,11 @@
 		<string>requires access to photo libray</string>
 		<key>PermissionGroupNotification</key>
 		<string>PERMISSION_NOTIFICATIONS</string>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>http</string>
+			<string>https</string>
+		</array>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIBackgroundModes</key>

@@ -1,13 +1,26 @@
 (ns phanpy.webview
-  (:require ["package:flutter/material.dart" :as m]
+  (:require ["dart:developer" :as dev]
+            ["package:url_launcher/url_launcher.dart" :as launcher]
             ["package:webview_flutter/webview_flutter.dart" :as webview]
             ["package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart" :as webview-interface]
             ["package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart" :as webview-ios]
             [cljd.flutter :as f]
+            [clojure.string :as string]
+            [phanpy.config :as config]
             [phanpy.permission :as permission]))
 
+(defn ^:async custom-navigation-decision
+  "navigation decision with business rule to handle URL outside phanpy"
+  [url]
+  (launcher/launch
+   (Uri/parse url)
+   .forceSafariVC true
+   .universalLinksOnly true
+   .forceWebView true)
+  webview/NavigationDecision.prevent)
+
 (defn load-url
-  "constructs the webview widget by receiving the URL that will be loaded"
+  "webview construct in widget by receiving the URL that will be loaded"
   [url]
   (f/widget
    :let [ios (dart/is? webview-interface/WebViewPlatform.instance
@@ -19,7 +32,6 @@
    :managed [controller
              (doto (webview/WebViewController.fromPlatformCreationParams params)
                (.setJavaScriptMode webview/JavaScriptMode.unrestricted)
-               (.setBackgroundColor m/Colors.white)
                (.enableZoom true)
                (.setUserAgent "PhanpyMobile")
                (as->
@@ -27,7 +39,17 @@
                 (doto cont
                   (.setNavigationDelegate
                    (webview/NavigationDelegate
-                    .onPageStarted (permission/photo-request)))))
+                    .onPageStarted (permission/photo-request)
+                    .onWebResourceError
+                    (fn [^webview/WebResourceError err]
+                      (dev/log (str :phanpy-webview err)))
+                    .onNavigationRequest
+                    (fn [{for-main-frame .-isMainFrame
+                          url .-url :as ^webview/NavigationRequest nav}]
+                      (if (or (not for-main-frame)
+                              (string/includes? url config/domain))
+                        webview/NavigationDecision.navigate
+                        (custom-navigation-decision url)))))))
                (cond-> ios
                  (-> ^webview-ios/WebKitWebViewController (.-platform)
                      ;; allow the user to return with gesture movement

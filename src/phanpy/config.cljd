@@ -1,0 +1,4 @@
+(ns phanpy.config)
+
+(def domain "phanpy.social")
+(def url (str "https://" domain "/#/login"))
