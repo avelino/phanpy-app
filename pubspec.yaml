@@ -16,6 +16,7 @@ dependencies:
   url_launcher: ^6.1.11
   photo_manager: ^2.6.0
   flutter_native_splash: ^2.3.1
+  status_bar_control: ^3.2.1
 
 dev_dependencies:
   flutter_test:

@@ -1,12 +1,22 @@
 (ns phanpy.main
   (:require ["package:flutter/material.dart" :as m]
+            ["package:status_bar_control/status_bar_control.dart" :as status-bar]
             [cljd.flutter :as f]
             [phanpy.config :as config]
             [phanpy.webview :as webview]))
 
+(defn -init-state []
+  "starts the app state, loads before loading all components"
+  ;; TODO: is not working as expected
+  (await
+   (status-bar/StatusBarControl.setHidden
+    true
+    .animation status-bar/StatusBarAnimation.SLIDE)))
+
 (defn main
   "where the magic happens :D"
   []
+  (-init-state)
   (f/run
    (m/MaterialApp
     .debugShowCheckedModeBanner false
